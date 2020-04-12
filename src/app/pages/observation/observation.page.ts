@@ -16,10 +16,8 @@ export class ObservationPage implements OnInit {
   _message: String = '';
   _selectedDay = [];
   _selectedIndex: String = ''
-  _selectedDate: String = '' // Use to check current background highligh
-  //background: #00000073; 
-
-  _isTest: boolean = true;
+  _selectedDate: String = '' // Use to check current background highligh 
+  _isTest: boolean = false;
   _testErrorLink: String = '';
   _testCheckAvailableTime: String = '';
   _background: String;
