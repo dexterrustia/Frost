@@ -16,6 +16,7 @@ export class ObservationPage implements OnInit {
   _message: String = '';
   _selectedDay = [];
   _selectedIndex: String = ''
+  _selectedDate: String = '' // Use to check current background highligh
   //background: #00000073; 
 
   _isTest: boolean = true;
@@ -116,6 +117,7 @@ export class ObservationPage implements OnInit {
     this._selectedDay = this._observations[index].observations
     console.log(this._selectedDay)
     this._selectedIndex = index.toString();
+    this._selectedDate = this._observations[index].date
 
     this._selectedDay = this._observations[index].observations;
     console.log(`this._selectedDay[0][2].value ${this._selectedDay[0][0].value}`)

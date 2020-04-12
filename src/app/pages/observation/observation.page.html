@@ -38,19 +38,28 @@
         </div>
       </ion-item>
       <ion-item>
-        <div>
-          Wind Speed {{_selectedDay[0][5].value}}{{_selectedDay[0][5].unit}}
-        </div>
-      </ion-item>
 
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Wind Speed {{_selectedDay[0][5].value}}{{_selectedDay[0][5].unit}}
+            </ion-col>
+            <ion-col style=" text-align: right; ">
+              {{_selectedDate}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
 
       <ion-item>
         <ion-slides pager="false" [options]="sliderConfig" *ngIf="_selectedDay && _selectedDay.length" autoplay="3000"
           speed="600" effect="slide">
           <ion-slide *ngFor="let obs of _selectedDay; let i = index">
             <div>{{i >= 10 ? i : '0'+i  }}:00</div>
-            <ion-icon name="sunny-outline"></ion-icon>
-            <div>{{obs[0].value}}<span style="font-weight: 300;">°C</span></div>
+            <ion-icon name="{{_selectedDay[0][6].value == '0' ? 'Rainy' : 'Sunny'}}"></ion-icon>
+            <div>{{obs[0].value}}<span style=" font-weight: 300;">°C</span>
+            </div>
           </ion-slide>
         </ion-slides>
         <!-- 
@@ -84,7 +93,8 @@
           </ion-row>
           <div class="gridBody">
             <ion-row *ngFor="let obs of _observations; let index = index" style="border-radius: 8px; padding: 4px 0px;"
-              tappable (click)="onDateSelec(index)">
+              style.background="{{obs.date == _selectedDate ? '#00000073' : 'none' }}" tappable
+              (click)="onDateSelec(index)">
               <ion-col>
                 <div>
                   {{obs.date}}
