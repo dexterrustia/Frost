@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="_message != ''" style="margin-top:30vh">
+    <ion-card-content style=" text-align: center; ">
+      <ion-icon name="alert-circle-outline" size="xx-large" color="danger"></ion-icon><br />
+      {{_message}}
+    </ion-card-content>
+    <ion-button expand="full" color="secondary" routerLink="/home">Go Back</ion-button>
+  </ion-card>
+
+  <div>
+    <ion-list *ngFor="let sensor of _sensorSystem">
+      <ion-item (click)="openTimeModal(sensor.id)">
+        <ion-label>
+          <h2>
+            {{sensor.name}}<span *ngIf="sensor.shortName" style="font-style: italic;"> - ({{sensor.shortName}})</span>
+          </h2>
+          <p>{{sensor.municipality}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

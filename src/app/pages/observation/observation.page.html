@@ -1,0 +1,122 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Observation</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+
+<ion-card *ngIf="_message != ''" style="margin-top:30vh">
+  <ion-card-content style=" text-align: center; ">
+    <ion-icon name="alert-circle-outline" size="xx-large" color="danger"></ion-icon><br />
+    {{_message}}<br />
+    <div *ngIf="_isTest">
+      <a href="{{_testErrorLink}}" target="_blank">OpenAPI</a><br>
+      <a href="{{_testCheckAvailableTime}}" target="_blank">Check available Time</a>
+    </div>
+  </ion-card-content>
+  <ion-button expand="full" color="secondary" (click)="goBack()">Go Back</ion-button>
+</ion-card>
+
+<ion-content *ngIf="_observations.length" [style.background-image]=" 'url(../../../assets/'+ _background +'.jpg)' ">
+
+  <div *ngIf="_observations.length"
+    style="height: 100vh; background: #00000059!important; height: auto; padding-bottom: 1px;">
+
+    <div class="divHeader">
+      <ion-icon name="arrow-back" style="font-size: 40px;" color="light" (click)="goBack()"></ion-icon>
+
+      <!-- <ion-icon name="location-outline"></ion-icon>
+      <div>Observation</div> -->
+    </div>
+    <ion-list>
+      <ion-item *ngIf="_selectedDay.length">
+        <div class="mainDiv">
+          <div class="temp">
+            {{_selectedDay[0][1].value}}<div class="degress">°C</div>
+          </div>
+          <div>{{_selectedDay[0][6].value == '0' ? 'Rainy' : 'Sunny'}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div>
+          Wind Speed {{_selectedDay[0][5].value}}{{_selectedDay[0][5].unit}}
+        </div>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-slides pager="false" [options]="sliderConfig" *ngIf="_selectedDay && _selectedDay.length" autoplay="3000"
+          speed="600" effect="slide">
+          <ion-slide *ngFor="let obs of _selectedDay; let i = index">
+            <div>{{i >= 10 ? i : '0'+i  }}:00</div>
+            <ion-icon name="sunny-outline"></ion-icon>
+            <div>{{obs[0].value}}<span style="font-weight: 300;">°C</span></div>
+          </ion-slide>
+        </ion-slides>
+        <!-- 
+        <ion-slides pager="false" [options]="slideOpts" autoplay="3000" speed="600" effect="slide">
+          <ion-slide *ngFor="let o of _testSlide">
+            aasd
+          </ion-slide>
+        </ion-slides> -->
+
+      </ion-item>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div style="font-size: 10px; text-align: center;">
+                Date
+              </div>
+            </ion-col>
+            <ion-col style="text-align: center;">
+              <div>
+
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="cell3rd" style="font-size: 10px; text-align: center;">
+                <span>Air Temp.</span>
+                <span>Wind Speed</span>
+              </div>
+            </ion-col>
+          </ion-row>
+          <div class="gridBody">
+            <ion-row *ngFor="let obs of _observations; let index = index" style="border-radius: 8px; padding: 4px 0px;"
+              tappable (click)="onDateSelec(index)">
+              <ion-col>
+                <div>
+                  {{obs.date}}
+                </div>
+              </ion-col>
+              <ion-col style="text-align: center;">
+                <div>
+                  <ion-icon name="{{obs.observations[0][6].value == '0' ? 'rainy' : 'sunny'}}-outline"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="cell3rd" style="text-align: center;">
+                  <span>{{obs.observations[0][1].value}}</span>
+                  <span>{{obs.observations[0][5].value}}</span>
+                </div>
+              </ion-col>
+            </ion-row>
+
+          </div>
+
+        </ion-grid>
+
+      </ion-item>
+
+    </ion-list>
+
+
+  </div>
+</ion-content>
+
+<!-- .wrapper div {
+  display: inline-table;
+  border: 1px black solid;
+  width: 30vw;
+} -->
